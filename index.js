@@ -1,6 +1,7 @@
 // import { ERRORS } from './errors'
+const consola = require('consola')
 
-const log = item => console.log(item)
+const log = (type, item) => consola[type](item)
 const keys = object => Object.keys(object)
 const isNested = item => typeof item === 'object' && !Array.isArray(item)
 const operators = {
@@ -8,27 +9,23 @@ const operators = {
   max: '>=',
   equalsTo: '='
 }
-const mapMinMax = object => {
-  return keys(object)
-    .map(key => {
-      return keys(object[key])
-        .map(nestedKey => `${key} ${operators[nestedKey]} "${object[key][nestedKey]}"`)
+const mapMinMax = minMaxObject =>
+  keys(minMaxObject)
+    .map(key =>
+      keys(minMaxObject[key])
+        .map(nestedKey => `${key} ${operators[nestedKey]} "${minMaxObject[key][nestedKey]}"`)
         .join(' and ')
-    })
+    )
     .join(' and ')
-}
-const mapPropertyType = propertyArray => `(${propertyArray.map(type => `propertyType = "${type}"`).join(' or ')})`
-const mapHoa = HOAObject => {
-  return keys(HOAObject)
+
+const mapPropertyType = (propertyArray, d) => `(${propertyArray.map(type => `propertyType = "${type}"`).join(` ${d} `)})`
+const mapHoa = hoaObject =>
+  `(${keys(hoaObject)
     .map(key => {
-      if (isNested(HOAObject[key])) {
-        return keys(HOAObject[key]).map(nestedKey => `${key} ${operators[nestedKey]} ${HOAObject[key][nestedKey]}`)
-      } else {
-        return `${key} = "${HOAObject[key]}"`
-      }
+      if (isNested(hoaObject[key])) return keys(hoaObject[key]).map(nestedKey => `${key} ${operators[nestedKey]} ${hoaObject[key][nestedKey]}`)
+      else return `${key} = "${hoaObject[key]}"`
     })
-    .join(' and ')
-}
+    .join(' and ')})`
 
 const propertyTypesFilterables = ['singleFamily', 'condo']
 // examples objects start
@@ -60,15 +57,7 @@ const minMaxFilterables = {
   }
 }
 
-const buildFilter = (...blocks) => {
-  return blocks
-    .map(block => {
-      const [filterObject, mapCallback] = block
-      log(filterObject)
-      return mapCallback(filterObject)
-    })
-    .join(' and ')
-}
+const buildFilter = (...blocks) => blocks.map(([filterObject, mapCallback]) => mapCallback(filterObject)).join(' and ')
 
-const filterString = buildFilter([minMaxFilterables, mapMinMax], [propertyTypesFilterables, mapPropertyType], [hoaFilterables, mapHoa])
-log(filterString)
+const filterString = buildFilter([minMaxFilterables, mapMinMax], [hoaFilterables, mapHoa], [propertyTypesFilterables, mapPropertyType])
+log('success', `Generated filter string:\n ${filterString}`)

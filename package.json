@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/DerekAlanGilbert/query-builder/issues"
   },
-  "homepage": "https://github.com/DerekAlanGilbert/query-builder#readme"
+  "homepage": "https://github.com/DerekAlanGilbert/query-builder#readme",
+  "dependencies": {
+    "consola": "^2.11.3"
+  }
 }
