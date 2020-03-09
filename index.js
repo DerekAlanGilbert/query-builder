@@ -6,8 +6,8 @@ const log = (type, item) => consola[type](item)
 const keys = object => Object.keys(object)
 const isNested = item => typeof item === 'object' && !Array.isArray(item)
 const operators = {
-  min: '<=',
-  max: '>='
+  min: '>=',
+  max: '<='
   // equalTo: '=',
   // greaterThan: '>',
   // greaterThanOrEqualTo: '>=',
