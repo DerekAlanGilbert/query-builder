@@ -5,5 +5,6 @@ npm install
 ```
 
 ```node
-// to testnode index.js
+// to test
+node index.js
 ```
