@@ -26,7 +26,7 @@ const mapMinMax = minMaxObject =>
     )
     .join(' and ')
 
-const mapPropertyType = (propertyArray, d) => `(${propertyArray.map(type => `propertyType = "${type}"`).join(` ${d} `)})`
+const mapPropertyType = propertyArray => `(${propertyArray.map(type => `propertyType = "${type}"`).join(' or ')})`
 const mapHoa = hoaObject =>
   `(${keys(hoaObject)
     .map(key => {
@@ -66,8 +66,8 @@ const minMaxFilterables = {
 }
 // #endregion
 
-const buildFilter = (...blocks) => blocks.map(([filterObject, mapCallback]) => mapCallback(filterObject)).join(' and ')
+const buildFilter = (glue, ...blocks) => blocks.map(([filterObject, mapCallback]) => mapCallback(filterObject)).join(glue)
 
-const filterString = buildFilter([minMaxFilterables, mapMinMax], [hoaFilterables, mapHoa], [propertyTypesFilterables, mapPropertyType])
+const filterString = buildFilter(' and ', [minMaxFilterables, mapMinMax], [hoaFilterables, mapHoa], [propertyTypesFilterables, mapPropertyType])
 
 log('success', `Generated filter string:\n ${filterString}`)
