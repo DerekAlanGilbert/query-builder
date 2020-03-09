@@ -1,14 +1,22 @@
 // import { ERRORS } from './errors'
 const consola = require('consola')
 
+// #region - helper functions
 const log = (type, item) => consola[type](item)
 const keys = object => Object.keys(object)
 const isNested = item => typeof item === 'object' && !Array.isArray(item)
 const operators = {
   min: '<=',
-  max: '>=',
-  equalsTo: '='
+  max: '>='
+  // equalTo: '=',
+  // greaterThan: '>',
+  // greaterThanOrEqualTo: '>=',
+  // lessThanOrEqualTo: '=<',
+  // not: '!',
+  // notEqualTo: '!='
 }
+// #endregion
+// #region - mappers
 const mapMinMax = minMaxObject =>
   keys(minMaxObject)
     .map(key =>
@@ -26,9 +34,9 @@ const mapHoa = hoaObject =>
       else return `${key} = "${hoaObject[key]}"`
     })
     .join(' and ')})`
-
+// #endregion
+// #region - fake data
 const propertyTypesFilterables = ['singleFamily', 'condo']
-// examples objects start
 const hoaFilterables = {
   hasHoa: true,
   hoaMonthlyFee: {
@@ -56,8 +64,10 @@ const minMaxFilterables = {
     max: 2019
   }
 }
+// #endregion
 
 const buildFilter = (...blocks) => blocks.map(([filterObject, mapCallback]) => mapCallback(filterObject)).join(' and ')
 
 const filterString = buildFilter([minMaxFilterables, mapMinMax], [hoaFilterables, mapHoa], [propertyTypesFilterables, mapPropertyType])
+
 log('success', `Generated filter string:\n ${filterString}`)
