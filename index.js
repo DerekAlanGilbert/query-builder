@@ -66,8 +66,8 @@ const minMaxFilterables = {
 }
 // #endregion
 
-const buildFilter = (glue, ...blocks) => blocks.map(([filterObject, mapCallback]) => mapCallback(filterObject)).join(glue)
+const buildFilter = (...blocks) => blocks.map(([filterObject, mapCallback]) => mapCallback(filterObject)).join(' and ')
 
-const filterString = buildFilter(' and ', [minMaxFilterables, mapMinMax], [hoaFilterables, mapHoa], [propertyTypesFilterables, mapPropertyType])
+const filterString = buildFilter([minMaxFilterables, mapMinMax], [hoaFilterables, mapHoa], [propertyTypesFilterables, mapPropertyType])
 
 log('success', `Generated filter string:\n ${filterString}`)
