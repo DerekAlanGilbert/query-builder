@@ -1,4 +1,3 @@
-// import { ERRORS } from './errors'
 const consola = require('consola')
 
 // #region - helper functions
