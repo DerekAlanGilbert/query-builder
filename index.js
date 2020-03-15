@@ -1,5 +1,5 @@
-function Query(str = '') {
-  this.string = str
+function Query() {
+  this.string = ''
 }
 
 Query.create = function(str) {
@@ -10,6 +10,7 @@ Query.prototype.where = function(str) {
   this.string += str
   return this
 }
+
 Query.prototype.and = function(str) {
   this.string += ' and '
   return this
@@ -20,11 +21,11 @@ Query.prototype.or = function(str) {
   return this
 }
 
-const queryString = Query.create()
-  .where('bedrooms >= 10')
-  .and()
-  .where('bathrooms >= 3')
-  .and()
-  .where('propertyType = singleFamily')
+// const queryString = Query.create()
+//   .where('bedrooms >= 10')
+//   .and()
+//   .where('bathrooms >= 3')
 
-console.log(queryString.string)
+// console.log(queryString.string)
+
+module.exports = Query
