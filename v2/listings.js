@@ -1,5 +1,5 @@
 const consola = require('consola')
-const { HOA, BEDROOMS, BATHROOMS, AREA, LOT, YEARS } = require('../types/listings/index')
+const { HOA, BEDROOMS, BATHROOMS, AREA, LOT, YEARS } = require('../types/listings')
 const ListingsQuery = require('./search.js')
 
 const hoaMonthlyFee = 300
