@@ -1,0 +1,16 @@
+const consola = require('consola')
+// const { HOA, BEDROOMS } = require('../types/listings/index')
+const ListingsQuery = require('./search.js')
+
+const query = ListingsQuery.create()
+  .where('bedrooms')
+  .isBetween(3, 4)
+  .and()
+  .where('hoaMonthlyFee')
+  .isLessThan(400)
+  .and()
+  .hasHoa(400)
+  .and()
+  .hasPropertyTypes(['singleFamily', 'multiFamily'])
+
+consola.success('listings-query:', query.string)
