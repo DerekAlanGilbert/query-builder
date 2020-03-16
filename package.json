@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/DerekAlanGilbert/query-builder#readme",
   "dependencies": {
-    "consola": "^2.11.3"
+    "consola": "^2.11.3",
+    "parcel-bundler": "^1.12.4"
   }
 }
