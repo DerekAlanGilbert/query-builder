@@ -66,6 +66,10 @@ Query.prototype.and = function() {
 }
 
 Query.prototype.or = function() {
+  if (this.skip) {
+    this.skip = false
+    return this
+  }
   this.string += ` ${OR} `
   return this
 }
