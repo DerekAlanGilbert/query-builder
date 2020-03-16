@@ -1,9 +1,11 @@
-const greaterThan = '<'
-const lesserThan = '>'
-const greaterThanOrEqualTo = '<='
-const lesserThanOrEqualTo = '>='
+const greaterThan = '>'
+const lesserThan = '<'
+const greaterThanOrEqualTo = '>='
+const lesserThanOrEqualTo = '<='
 const equalTo = '='
 const notEqualTo = '!='
+const contains = '~'
+const doesNotcontain = '!~'
 
 module.exports = {
   greaterThan,
@@ -11,5 +13,7 @@ module.exports = {
   greaterThanOrEqualTo,
   lesserThanOrEqualTo,
   equalTo,
-  notEqualTo
+  notEqualTo,
+  contains,
+  doesNotcontain
 }
