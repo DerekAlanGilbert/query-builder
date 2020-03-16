@@ -3,7 +3,7 @@ const { HOA, BEDROOMS, BATHROOMS, AREA, LOT, YEARS } = require('../types/listing
 const ListingsQuery = require('./search.js')
 
 // #region --  data
-const hoaMonthlyFee = 300
+const hoaMonthlyFee = null
 const bedroomsMin = 2
 const bedrooomsMax = 4
 const bathroomsMin = 2
@@ -19,17 +19,24 @@ const types = ['singleFamily']
 
 const filterString = ListingsQuery.where(BEDROOMS)
   .isBetween(bedroomsMin, bedrooomsMax)
+  .and()
   .where(BATHROOMS)
   .isBetween(bathroomsMin, bathroomsMax)
+  .and()
   .where(YEARS)
   .isBetween(yearBuiltMin, yearBuiltMax)
+  .and()
   .where(AREA)
   .isBetween(areaMin, areaMax)
+  .and()
   .where(LOT)
   .isBetween(lotSizeMin, lotSizeMax)
+  .and()
   .where(HOA)
   .isLessThan(hoaMonthlyFee)
+  .and()
   .hasHoa(hoaMonthlyFee)
+  .and()
   .hasPropertyTypes(types)
   .build()
 
